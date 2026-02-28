@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorLogBuffer {
-    private static final int MAX_CAPACITY = 10000;
+// Clase que maneja la lógica del buffer (5 elementos)
+class ErrorLogBuffer {
+    private final int MAX_CAPACITY = 5; 
     private List<String> errorLog;
     private int currentIndex;
     private boolean isFull;
 
     public ErrorLogBuffer() {
-        // Pre-asignamos la capacidad para evitar el costo de redimensionamiento
+        // Pre-asignamos la capacidad
         errorLog = new ArrayList<>(MAX_CAPACITY);
         currentIndex = 0;
         isFull = false;
@@ -22,13 +23,12 @@ public class ErrorLogBuffer {
         } else {
             // Si ya llegamos a MAX_CAPACITY, sobrescribimos el elemento más antiguo
             isFull = true;
+            // Se sobreescribe el dato más antiguo
             errorLog.set(currentIndex, errorMessage);
         }
-        
-        // Actualizamos el índice de forma circular
+        // Se actualiza el índice de forma circular
         currentIndex = (currentIndex + 1) % MAX_CAPACITY;
     }
-
     // O(n) Lectura secuencial rápida gracias a la localidad de memoria del ArrayList
     public List<String> getSequentialLog() {
         List<String> orderedLog = new ArrayList<>(errorLog.size());
@@ -36,7 +36,6 @@ public class ErrorLogBuffer {
         if (!isFull) {
             return new ArrayList<>(errorLog);
         }
-        
         // Si el buffer ha dado la vuelta, leemos primero desde el índice actual hasta el final
         for (int i = currentIndex; i < MAX_CAPACITY; i++) {
             orderedLog.add(errorLog.get(i));
