@@ -1,8 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
 
-
-
 public class Main {
     public static void main(String[] args) {
         // ==========================================
@@ -47,6 +45,23 @@ public class Main {
         
         System.out.println("Revisando la palabra '" + palabraPrueba2 + "'...");
         System.out.println("¿Está prohibida? " + moderador.isBanned(palabraPrueba2));
+
+    // ==========================================
+        // ESCENARIO 3: Historial del Navegador
+        // ==========================================
+        System.out.println("\n=== ESCENARIO 3: Historial de Navegación ===");
+        BrowserHistory history = new BrowserHistory();
+        
+        history.visit("google.com");
+        history.visit("stackoverflow.com");
+        history.visit("github.com");
+        history.printCurrentPage(); 
+        
+        System.out.println("\n-- Probando botones Back y Forward --");
+        history.goBack();    
+        history.goBack();    
+        history.goForward(); 
+        history.printCurrentPage(); 
     }
     
     // ASuxiliar para imprimir
